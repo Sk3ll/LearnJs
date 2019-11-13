@@ -73,45 +73,42 @@ console.log(perimetr(2, 3));
 /*
 var mp3 = {
     playPause: 1, //1 play, 0 pause
-    display: {
-        currentSong: 1,
-        nextSong: function() {
-            mp3.display.currentSong++;
+    playlist: ["Linkin Park","Бутырка","Oxxxymiron","50 cent"],
+    currentSong: 0,
+    nextSong: function() {
+            mp3.currentSong++;
         },
-        previousSong: function(){
-            mp3.display.currentSong--;
+    previousSong: function(){
+            mp3.currentSong--;
         },
-    },
-    volume: {
-        currentVolume: 1,
-        plus: function(){
-            mp3.volume.currentVolume++;
+    currentVolume: 1,
+    plusVolume: function(){
+            mp3.currentVolume++;
         },
-        minus: function(){
-            mp3.volume.currentVolume--;
+    minusVolume: function(){
+            mp3.currentVolume--;
         },
-    },
-
 };
 
 if (mp3.playPause == 1) {
     console.log("Play");
-
+    
 /// Сюда писать действия вместо кнопок////////  
-    //mp3.display.nextSong();
-    mp3.volume.plus();
+    mp3.nextSong();
+    mp3.nextSong();
+    //mp3.nextSong();
+    //mp3.nextSong();
+    //mp3.nextSong();
+    mp3.plusVolume();
     
 //////////////////////////////////////////////
-   
-    if (mp3.volume.currentVolume == 1 && mp3.display.currentSong == 1) {
-        console.log("Current Song:" + mp3.display.currentSong);
-        console.log("Volume:" + mp3.volume.currentVolume);
-    }   
-    else {
-        console.log("Current Song:" + mp3.display.currentSong);
-        console.log("Volume:" + mp3.volume.currentVolume);
+    if (mp3.currentSong > 3) {
+        console.log("ERROR");
     }
-
+    else{
+        console.log("Current Song:" + mp3.playlist[mp3.currentSong]);
+        console.log("Volume:" + mp3.currentVolume);
+    }
 }
 else {
     console.log("Pause");
@@ -125,21 +122,8 @@ else {
     Bill 30       5      HTML, CSS, JavaScript
     Mike 32       4      Python,
 */
-/* ///////Первый вариант
-var bd = {
-    name: ["John", "Bill", "Mike"],
-    age: ["28", " 30", "32"],
-    experience: ["1", "5", "4"],
-    languages: [
-        ["Java", "JavaScript", "SQL"], 
-        ["HTML", "CSS", "JavaScript"], 
-        ["Python"]
-    ],
-};
-console.log(bd.languages[2][0]);
-*/ 
+
 /*
-//////Второй вариант 
 var bd = {
     people: [
     {
@@ -161,4 +145,157 @@ var bd = {
 ]};
 
 //console.log(bd.people[0].languages[1]);
+*/
+
+/*
+Задание №1.
+Напишите функцию mul(), которая принимает любое количество параметров
+разного типа и возвращает произведение параметров типа Number.
+Если параметры типа Number отсутствуют, возвращает число 0.
+*/
+/*
+function mul() {
+    // Ваш код
+    var tmp = 1;
+var count = 0;
+    for (var i = 0; i < arguments.length; i++){
+        if (typeof(arguments[i])==="number"){
+            tmp *= arguments[i];
+            count++;
+        }
+
+    }
+
+if (count == 0) return 0;
+
+return tmp;
+    }
+console.log(mul(1, "str", 2, 3, true)); // 6
+console.log(mul(null, "str", false, true)); // 0
+
+/*
+    Задание №2. Явное указание this
+Есть следующий код:
+var country = {
+name: &quot;Украина&quot;,
+language: &quot;украинский&quot;,
+capital: {
+name: &quot;Киев&quot;,
+population: 2907817,
+area: 847.66
+}
+};
+function format(beginMsg, endMsg) {
+console.log(beginMsg + this.name + endMsg);
+}
+format.call(/* Ваш код /); // &quot;&lt;Украина&gt;&quot;
+format.apply(/* Ваш код /); // &quot;[Украина]&quot;
+format.call(/* Ваш код /); // &quot;&quot;Киев&quot;&quot;
+format.apply(/* Ваш код /); // &quot;Киев&quot;
+Допишите код, чтобы в консоли браузера появились строки, которые написаны
+в комментариях.
+*/
+/*
+var country = {
+    name: "Украина",
+    language: "украинский",
+    capital: {
+        name: "Киев",
+        population: 2907817,
+        area: 847.66
+        }
+    };
+
+    function format(beginMsg, endMsg) {
+    console.log(beginMsg + this.name + endMsg);
+}
+  
+    format.call(country, "<", ">"); // <Украина>;
+    format.apply(country, ["[", "]"]); // [Украина]
+    format.call(country.capital,'"','"'); // "Киев"
+    format.apply(country.capital, ["",""]); // Киев
+
+    /*
+    Задание №1.
+Есть следующий код:
+var user = {
+name: &quot;Tom&quot;
+};
+function format(beginMsg, endMsg) {
+console.log(beginMsg + this.name + endMsg);
+}
+var tomFormat = // Ваш код
+tomFormat(&quot;&lt;&lt;&lt;&quot;, &quot;&gt;&gt;&gt;&quot;); // &quot;&lt;&lt;&lt;Tom&gt;&gt;&gt;&quot;
+Привяжите функцию format() к объекту user.
+Реализуйте 2 версии текущего задания, используя:
+1. Анонимную функцию обвертку;
+2. Метод bind().
+    */
+/*
+var user = {
+    name: "Tom"
+};
+
+function format(beginMsg, endMsg) {
+    console.log(beginMsg + this.name + endMsg);
+}
+
+var tomFormat = function() { format.call(user, "<<<", ">>>") }
+
+//var tomFormat = format.bind(user);
+tomFormat("<<<", ">>>"); // "<<<Tom>>>"
+
+/*
+    Задание №2.
+Есть следующий код:
+function mul(a, b) {
+return a * b;
+}
+var doubleMul = // Ваш код
+var qudraMul = // Ваш код
+console.log(doubleMul(5)); // 10
+console.log(qudraMul(5)); // 20
+Используя функцию mul() и карринг создайте две функции doubleMul() и
+qadraMul(), которые умножают числа на 2 и на 4 соответственно.
+*/
+/*
+function mul(a, b) {
+    return a * b;
+    }
+    var doubleMul = mul.bind(null, 2); // Ваш код
+    var qudraMul = mul.bind(null, 4);
+    console.log(doubleMul(5)); // 10
+    console.log(qudraMul(5)); // 20
+
+/*
+    Задание №3.
+Напишите аналог метода bind():
+function bind(func, context) {
+// Ваш код
+}
+function func() {
+console.log(this.name + &quot; - &quot;+ this.age);
+}
+var user = {
+name: &quot;Tom&quot;,
+age: 20
+};
+var f = bind(func, user);
+f(); // &quot;Tom – 20&quot;
+*/
+/*
+function bind(func, context) {
+    // Ваш код
+    return function() {func.call(context)};
+}
+function func() {
+    console.log(this.name + " - " + this.age);
+}
+var user = {
+    name: "Tom",
+    age: 20
+};
+    
+var f = bind(func, user);
+f(); // Tom – 20
 */
