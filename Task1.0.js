@@ -231,7 +231,7 @@ tomFormat(&quot;&lt;&lt;&lt;&quot;, &quot;&gt;&gt;&gt;&quot;); // &quot;&lt;&lt;
 1. Анонимную функцию обвертку;
 2. Метод bind().
     */
-/*
+
 var user = {
     name: "Tom"
 };
@@ -240,7 +240,7 @@ function format(beginMsg, endMsg) {
     console.log(beginMsg + this.name + endMsg);
 }
 
-var tomFormat = function() { format.call(user, "<<<", ">>>") }
+var tomFormat = function(beginMsg,endMsg) { format.call(user, beginMsg, endMsg) };
 
 //var tomFormat = format.bind(user);
 tomFormat("<<<", ">>>"); // "<<<Tom>>>"
