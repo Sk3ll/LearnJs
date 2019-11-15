@@ -299,3 +299,5 @@ var user = {
 var f = bind(func, user);
 f(); // Tom – 20
 */
+
+
