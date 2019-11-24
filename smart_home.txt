@@ -1,0 +1,21 @@
+
+
+1. класс Dryer
+    состояние
+        _name: String
+        _state: Boolean
+        _temperature: Bolean
+        _isOpenDoor: Bolean
+    поведение
+        getname(): String
+        getState(): Boolean
+        on(): void  //
+        off(): void
+      
+       getStateDoor(): Bolean
+        openDoor(): void
+        closeDoor(): void
+       
+        getTemperature(): Number 
+        increseTemperature() : void
+        decreaseTemperature() : void
