@@ -7,7 +7,7 @@
 /*
 function Player(name) {
     this.name = name;
-    this.playPause = playPause;
+    this.playPause = true;
 }
 
 Player.prototype.switcher = function (playPause) {
