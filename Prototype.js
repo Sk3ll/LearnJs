@@ -7,7 +7,7 @@
 /*
 function Player(name) {
     this.name = name;
-    this.playPause = true;
+    this.playPause = playPause;
 }
 
 Player.prototype.switcher = function (playPause) {
@@ -360,49 +360,18 @@ arr и два числа (first и second) – порядковые номера
 обработку возможных исключений.
 */
 
-function sumSliceArray(arr, first, second){
-var arrIsArr = false;
-    for (var i = 0; i < arr.length; i++) {
-        if (typeof arr[i] == "number" && !isNaN(arr[i])) {
-        arrIsArr = true;
-        }
-        else {
-        arrIsArr = false;
-        break;
-        }
-    }
 
-    if (arrIsArr && typeof first == "number" && !isNaN(first) && first<=arr.length && typeof second == "number" && !isNaN(second) && second<=arr.length) {
-        return arr [first - 1] + arr [second - 1];
-    }
-    else return "введите числа";
-}
-
-//console.log(sumSliceArray([1,2,3,4],5,3))
-
-
-//try catch
 
 function sumSliceArray(arr, first, second){
-    var arrIsArr = false;
-        for (var i = 0; i < arr.length; i++) {
-            if (typeof arr[i] == "number" && !isNaN(arr[i])) {
-            arrIsArr = true;
-            }
-            else {
-            arrIsArr = false;
-            break;
-            }
-        }
     
-        if (arrIsArr && typeof first == "number" && !isNaN(first) && first<=arr.length && typeof second == "number" && !isNaN(second) && second<=arr.length) {
+        if (typeof first == "number" && !isNaN(first) && first<=arr.length && typeof second == "number" && !isNaN(second) && second<=arr.length) {
             return arr [first - 1] + arr [second - 1];
         }
         else throw new Error ("введите числа");
     }
     
 try {    
-    console.log(sumSliceArray([1,2,3,4],5,3))
+    console.log(sumSliceArray([1,2,3,4],3,3))
 }
 catch(error) {
     console.log(error);
