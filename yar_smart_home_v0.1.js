@@ -1,40 +1,31 @@
-/*
-1. класс Dryer
-    состояние
-        _name: String
-        _state: Boolean
-        _temperature: Number
-        _isOpenDoor: Bolean
-    поведение
-        getname(): String
-        getState(): Boolean
-        on(): void  //
-        off(): void
-      
-       getStateDoor(): Bolean
-        openDoor(): void
-        closeDoor(): void
-       
-        getTemperature(): Number 
-        increseTemperature() : void
-        decreaseTemperature() : void
-*/
-
 "use strict";
 
-function Dryer() {
-    this._name = "Dryer machine";
-    this._state = false; 
+
+function Devices (name){
+    this._name = name;
+    this._state = false;
+}
+Devices.prototype.getName = function(){
+    return this._name;
+}
+Devices.prototype.getState = function(){
+    return this._state;
+}
+Devices.prototype.on = function(){
+    this._state = true;
+}
+Devices.prototype.off = function(){
+    this._state = false;
+}
+
+function Dryer(name) {
+    Devices.call(this, name)
     this._temperature = 0;
     this._isOpenDoor = false;
 }
+Dryer.prototype = Object.create(Devices.prototype)
+Dryer.prototype.constructor = Dryer;
 
-Dryer.prototype.getName = function(){
-    return this._name;
-}
-Dryer.prototype.getState = function(){
-    return this._state;
-}
 Dryer.prototype.on = function(){
     if (this._isOpenDoor == true){
         throw new Error("Please close door")
@@ -119,26 +110,15 @@ let d = new Dryer();
         silentMode(): void
 */
 
-function TV() {
-    this._name = "TV";
-    this._state = false; 
+function TV(name) {
+    Devices.call(this, name)
     this._channels = [];
     this._currentChanel = 0;
     this._volume = 0;
 }
 
-TV.prototype.getName = function() {
-    return this._name;
-}
-TV.prototype.getState = function() {
-    return this._state;
-}
-TV.prototype.on = function() {
-    this._state = true;
-}
-TV.prototype.off = function(){
-    this._state = false;
-}
+TV.prototype = Object.create(Devices.prototype);
+TV.prototype.constructor = TV;
 
 TV.prototype.getChannels = function (){
     return this._channels;
@@ -188,19 +168,3 @@ var tv = new TV();
 
 
 
-function Devices (name){
-    this._name = name;
-    this._state = false;
-}
-Devices.prototype.getName = function(){
-    return this._name;
-}
-Devices.prototype.getState = function(){
-    return this._state;
-}
-Devices.prototype.on = function(){
-    this._state = true;
-}
-Devices.prototype.off = function(){
-    this._state = false;
-}
