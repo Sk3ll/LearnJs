@@ -36,10 +36,8 @@ Dryer.prototype.getState = function(){
     return this._state;
 }
 Dryer.prototype.on = function(){
-    if (this._isOpenDoor == true){
-        return "Please close door";
-    } else {
-        this._state = true;
+    if (this._isOpenDoor == false){
+        this._state = true; 
     }
 }
 Dryer.prototype.off = function(){
