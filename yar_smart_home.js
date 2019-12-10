@@ -37,17 +37,14 @@ Dryer.prototype.getState = function(){
 }
 Dryer.prototype.on = function(){
     if (this._isOpenDoor == true){
-        throw new Error("Please close door")
-    } else if (this._isOpenDoor == false){
+        return "Please close door";
+    } else {
         this._state = true;
     }
 }
 Dryer.prototype.off = function(){
-    if(this._temperature > 1){
-        throw new Error("Please decrease temperature to 0")
-    } else if (this._temperature == 0){
         this._state = false;
-    }
+        this._temperature = 0;
 }
 
 
@@ -55,11 +52,8 @@ Dryer.prototype.getStateDoor = function (){
     return this._isOpenDoor;
 }
 Dryer.prototype.openDoor = function(){
-    if (this._state == true){
-        throw new Error("Machine work")
-    } else if(this._state == false){
         this._isOpenDoor = true;
-    }
+        this._state = false;
 }
 Dryer.prototype.closeDoor = function(){
     this._isOpenDoor = false;
@@ -67,25 +61,17 @@ Dryer.prototype.closeDoor = function(){
 
 
 Dryer.prototype.getTemperature = function(){
-    if (this._isOpenDoor == true && this._state == false) {
-        throw new Error ("Machine work")
-    } else {
         return this._temperature;
-    }
 }
 Dryer.prototype.increaseTemperature = function(){
-    if (this._isOpenDoor == true || this._state == false){
-        throw new Error("Please close door and switch on machine");
-    } else if(this._isOpenDoor == false && this._state == true){
+    if (this._temperature < 30){
         this._temperature ++;
-    }
+    } 
 }
 Dryer.prototype.decreaseTemperature = function(){
-    if (this._isOpenDoor == true && this._state == false && this._temperature == 0){
-        throw new Error("Please close door and switch on machine");
-    } else if(this._isOpenDoor == false && this._state == true && this._temperature != 0){
+    if (this._temperature > 0){
         this._temperature --;
-    }
+    } 
 }
 
 let d = new Dryer();
