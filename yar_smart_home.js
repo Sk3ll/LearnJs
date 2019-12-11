@@ -137,17 +137,19 @@ TV.prototype.getCurrentChannel = function (){
     return this._channels[this._currentChanel];
 }
 TV.prototype.setChannel = function(value){
-    if(typeof value == "number" && !isNaN(value)){
+    if(typeof value == "number" && !isNaN(value) && value < this._channels.length){
         this._currentChanel = value;
     } else console.log("Type nubmers");
 }
 TV.prototype.nextChannel = function(){
-    this._currentChanel++;
+    if (this._currentChanel < this._channels.length -1){
+        this._currentChanel++;
+    }
 }
 TV.prototype.previousChannel = function(){
-    if (this._currentChanel != 0){
+    if (this._currentChanel > 0){
     this._currentChanel--;
-    } else this._currentChanel = 0
+    } 
 }
 
 TV.prototype.getVolume = function(){
@@ -156,12 +158,12 @@ TV.prototype.getVolume = function(){
 TV.prototype.increaseVolume = function (){
     if(this._volume < 100){
         this._volume ++;
-    } else this._volume = 100;
+    } 
 }
 TV.prototype.decreaseVolume = function (){
-    if(this._volume != 0){
+    if(this._volume > 0){
         this._volume --;
-    } else this._volume = 0;
+    } 
 }
 TV.prototype.silentMode = function (){
     this._volume = 0;
