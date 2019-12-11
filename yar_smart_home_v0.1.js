@@ -158,3 +158,58 @@ var tv = new TV("tv");
 
 
 
+/*
+class SmartHouse
+    состояние
+        _name: String
+        _devices: []
+    поведение
+        getName(): String
+        addDevices(device): void
+        getDevices(): [Object]
+        getDeviceByName(name): Object
+        deleteDeviceByName(name): void
+        offAllDevice(): void
+*/
+
+function SmartHouse(name){
+    this._name = name;
+    this._devices = [];
+}
+
+SmartHouse.prototype.getName = function() {
+    return this._name;
+}
+
+SmartHouse.prototype.addDevices = function(Object){
+    this._devices.push(Object)
+}
+SmartHouse.prototype.getDevices = function(){
+    return this._devices;
+}
+SmartHouse.prototype.getDeviceByName = function(name){
+    return this._devices.filter( function (obj){
+        return obj._name == name;
+    })[0];
+    
+}
+SmartHouse.prototype.deleteDeviceByName = function (name) {
+    this._devices =  this._devices.filter( function (obj){
+        return obj._name != name;
+    })
+}
+SmartHouse.prototype.offAllDevice = function() {
+    this._devices = undefined;
+}
+
+
+let sh = new SmartHouse("Name1");
+sh.addDevices(new Dryer("Dryer1"));
+sh.addDevices(new Dryer("Dryer2"));
+sh.addDevices(new TV("tv1"));
+console.log(sh.getDevices());
+console.log(sh.getDeviceByName("tv1"));
+sh.deleteDeviceByName("tv1");
+console.log(sh.getDevices());
+sh.offAllDevice();
+console.log(sh.getDevices());
