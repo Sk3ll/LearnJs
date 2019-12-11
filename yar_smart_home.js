@@ -130,7 +130,9 @@ TV.prototype.getChannels = function (){
 TV.prototype.pushChannel = function (chnl){
     if (typeof chnl == "string"){
         this._channels.push(chnl); 
-    } else console.log("Type string pls")
+    } else {
+        console.log("Type string pls");
+    }
 }
 
 TV.prototype.getCurrentChannel = function (){
@@ -139,7 +141,9 @@ TV.prototype.getCurrentChannel = function (){
 TV.prototype.setChannel = function(value){
     if(typeof value == "number" && !isNaN(value) && value < this._channels.length){
         this._currentChanel = value;
-    } else console.log("Type nubmers");
+    } else {
+        console.log("Type nubmers");
+    }
 }
 TV.prototype.nextChannel = function(){
     if (this._currentChanel < this._channels.length -1){
