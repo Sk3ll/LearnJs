@@ -22,8 +22,8 @@
 
 "use strict";
 
-function Dryer() {
-    this._name = "Dryer machine";
+function Dryer(name) {
+    this._name = name;
     this._state = false; 
     this._temperature = 0;
     this._isOpenDoor = false;
@@ -103,8 +103,8 @@ let d = new Dryer();
         silentMode(): void
 */
 
-function TV() {
-    this._name = "TV";
+function TV(name) {
+    this._name = name;
     this._state = false; 
     this._channels = [];
     this._currentChanel = 0;
