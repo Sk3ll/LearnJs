@@ -181,8 +181,8 @@ SmartHouse.prototype.getName = function() {
     return this._name;
 }
 
-SmartHouse.prototype.addDevices = function(Object){
-    this._devices.push(Object)
+SmartHouse.prototype.addDevices = function(object){
+    this._devices.push(object)
 }
 SmartHouse.prototype.getDevices = function(){
     return this._devices;
