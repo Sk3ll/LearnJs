@@ -189,7 +189,7 @@ SmartHouse.prototype.getDevices = function(){
 }
 SmartHouse.prototype.getDeviceByName = function(name){
     return this._devices.filter( function (obj){
-        return obj._name == name;
+        return obj.getName() == name;
     })[0];
     
 }
@@ -199,7 +199,7 @@ SmartHouse.prototype.deleteDeviceByName = function (name) {
     })
 }
 SmartHouse.prototype.offAllDevice = function() {
-    this._devices = undefined;
+    this._devices.forEach(function( obj){ obj.off() } );
 }
 
 
@@ -210,6 +210,7 @@ sh.addDevices(new TV("tv1"));
 console.log(sh.getDevices());
 console.log(sh.getDeviceByName("tv1"));
 sh.deleteDeviceByName("tv1");
+sh.getDeviceByName("Dryer1").on();
+console.log(sh.getDeviceByName("Dryer1"));
 console.log(sh.getDevices());
 sh.offAllDevice();
-console.log(sh.getDevices());
