@@ -192,18 +192,14 @@ class SmartHouse{
         return this._devices;
     }
     getDeviceByName (name){
-        return this._devices.filter( function (obj){
-            return obj.name == name;
-        })[0];
+        return this._devices.filter( (obj) => obj.name == name)[0];
         
     }
     deleteDeviceByName (name) {
-        this._devices =  this._devices.filter( function (obj){
-            return obj.name != name;
-        })
+        this._devices =  this._devices.filter(  (obj) => bj.name != name )
     }
     offAllDevice () {
-        this._devices.forEach(function( obj){ obj.off() } );
+        this._devices.forEach(( obj) => { obj.off() } );
     }
 }
 
