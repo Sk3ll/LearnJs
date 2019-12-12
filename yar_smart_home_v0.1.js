@@ -195,7 +195,7 @@ SmartHouse.prototype.getDeviceByName = function(name){
 }
 SmartHouse.prototype.deleteDeviceByName = function (name) {
     this._devices =  this._devices.filter( function (obj){
-        return obj._name != name;
+        return obj.getName() != name;
     })
 }
 SmartHouse.prototype.offAllDevice = function() {
