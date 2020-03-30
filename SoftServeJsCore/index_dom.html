@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Навигация в DOM</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>Пользователи:</div>
+        <ul>
+            <li>Саша</li>
+            <li>Вовочка</li>
+        </ul>
+
+        <script>
+            "use strict";
+            let headElements = document.head.children;
+            for (let i = 0; i < headElements.length; i++) {
+                console.log(headElements[i]);
+            }
+            console.log(document.body.children[0].innerText)
+            let ulElements = document.body.children[1].innerText ;
+            //for (let i = 0; i < ulElements.length; i++) {
+                console.dir(ulElements);
+            
+            //}
+            //let liElements = document.children;
+            //for (let i = 0; i < liElements.length; i++) {
+            //    console.log(liElements[i]);
+            //}
+        </script>
+    </body>
+</html>
