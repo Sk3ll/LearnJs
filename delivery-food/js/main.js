@@ -1,6 +1,6 @@
 'use strict';
 
-const cartButton = document.querySelector("#cart-button");
+const cardButton = document.querySelector("#cart-button");
 const modal = document.querySelector(".modal");
 const close = document.querySelector(".close");
 const buttonAuth = document.querySelector('.button-auth');
@@ -28,7 +28,7 @@ function toggleModalAuth(){
 }
 
 function authorized(){
-  console.log('Autorized');
+  console.log('Authorized');
   
   function logOut(){
     login = null;
@@ -45,11 +45,11 @@ function authorized(){
   buttonAuth.style.display = 'none';
   userName.style.display = 'inline';
   buttonOut.style.display = 'block';
-  buttonOut.addEventListener('click', logOut)
+  buttonOut.addEventListener('click', logOut);
 }
 
 function noAuthorized(){
-  console.log('noAutorized');
+  console.log('noAuthorized');
   loginInput.style.borderColor  = '';
 
   function logIn(event){
@@ -129,7 +129,6 @@ function createCardGood(){
           <strong class="card-price-bold">510 ₽</strong>
    `);
   cardsMenu.insertAdjacentElement('beforeend',card);
-  console.log(card)
 }
 
 function openGoods(event){
@@ -150,7 +149,7 @@ function openGoods(event){
   
 }
 
-cartButton.addEventListener("click", toggleModal);
+cardButton.addEventListener("click", toggleModal);
 
 close.addEventListener("click", toggleModal);
 
@@ -167,3 +166,4 @@ checkAuth();
 createCardRestaurant();
 createCardRestaurant();
 createCardRestaurant();
+
