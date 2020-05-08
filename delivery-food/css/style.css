@@ -838,3 +838,10 @@ button {
         margin-right: 0;
     }
 }
+
+@media (max-width: 320px) {
+    .modal-dialog{
+        width: 100%;
+        padding: 30px 25px;
+    }
+}
