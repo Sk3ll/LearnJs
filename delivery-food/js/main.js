@@ -1,6 +1,6 @@
 'use strict';
 
-const cardButton = document.querySelector("#cart-button");
+const cartButton = document.querySelector("#cart-button");
 const modal = document.querySelector(".modal");
 const close = document.querySelector(".close");
 const buttonAuth = document.querySelector('.button-auth');
@@ -20,8 +20,12 @@ const restaurantTitle = document.querySelector('.restaurant-title');
 const rating = document.querySelector('.rating');
 const minPrice = document.querySelector('.price');
 const category = document.querySelector('.category');
+const modalBody = document.querySelector('.modal-body'); 
+const modalPrice = document.querySelector('.modal-pricetag');
 
 let login = localStorage.getItem('gloDelivery');
+
+const cart = [];
 
 const valid = function(str){
   const nameReg = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
@@ -65,14 +69,15 @@ function authorized(){
     buttonAuth.style.display = '';
     userName.style.display = '';
     buttonOut.style.display = '';
-    buttonOut.removeEventListener('click', logOut)
+    buttonOut.removeEventListener('click', logOut);
     checkAuth();
     returnMain();
   }
   userName.textContent = login;
   buttonAuth.style.display = 'none';
   userName.style.display = 'inline';
-  buttonOut.style.display = 'block';
+  buttonOut.style.display = 'flex';
+  cartButton.style.display = 'flex';
   buttonOut.addEventListener('click', logOut);
 }
 
@@ -117,7 +122,7 @@ function createCardRestaurant({ image, kitchen, name, price, stars,
   const card = `
       <a class="card card-restaurant" 
         data-products="${products}"
-        data-info="${[name, minPrice, stars, kitchen]}">
+        data-info="${[name, price, stars, kitchen]}">
       <img src="${image}" alt="${name}" class="card-image"/>
       <div class="card-text">
         <div class="card-heading">
@@ -139,7 +144,6 @@ function createCardRestaurant({ image, kitchen, name, price, stars,
 function createCardGood({ description, id, image, price, name}){
 
   const card = document.createElement('div');
-
   card.className = 'card';
    card.insertAdjacentHTML('beforeend', `
       <img src="${image}" alt="${name}" class="card-image"/>
@@ -148,17 +152,16 @@ function createCardGood({ description, id, image, price, name}){
           <h3 class="card-title card-title-reg">${name}</h3>
         </div>
         <div class="card-info">
-          <div class="ingredients">
-            ${description}
+          <div class="ingredients">${description}
           </div>
         </div>
         <!-- /.card-info -->
         <div class="card-buttons">
-          <button class="button button-primary button-add-cart">
+          <button class="button button-primary button-add-cart" id ="${id}">
             <span class="button-card-text">В корзину</span>
             <span class="button-cart-svg"></span>
           </button>
-          <strong class="card-price-bold">${price} ₽</strong>
+          <strong class="card-price card-price-bold">${price} ₽</strong>
    `);
   cardsMenu.insertAdjacentElement('beforeend',card);
 }
@@ -189,7 +192,59 @@ function openGoods(event){
   } else {
     toggleModalAuth();
   }
-  
+}
+
+function addToCart(event){
+  const target = event.target;
+
+  const buttonAddToCart = target.closest('.button-add-cart');
+ if(buttonAddToCart){
+  const card = target.closest('.card');
+  const tittle = card.querySelector('.card-title-reg').textContent;
+  const cost = card.querySelector('.card-price').textContent;
+  const id = buttonAddToCart.id;
+
+  const food = cart.find(function(item){
+    return item.id === id;
+  })
+
+  if (food){
+    food.count ++;
+  } else {
+    cart.push({
+      id,
+      tittle,
+      cost,
+      count: 1
+    })
+  }
+  console.log(cart)
+ }
+}
+
+function renderCart(){
+  modalBody.textContent = '';
+  cart.forEach(function({id, tittle, cost, count}){
+    const itemCart = `
+      <div class="food-row">
+        <span class="food-name">${tittle}</span>
+        <strong class="food-price">${cost} ₽</strong>
+        <div class="food-counter">
+          <button class="counter-button">-</button>
+          <span class="counter">${count}</span>
+          <button class="counter-button">+</button>
+        </div>
+    </div>
+    `;
+
+    modalBody.insertAdjacentHTML('afterbegin', itemCart)
+  });
+
+  const totalPrice = cart.reduce(function(result, item){
+    return result + parseFloat(item.cost) * item.count
+  }, 0)
+
+  modalPrice.textContent = totalPrice + ' ₽';
 }
 
 function init(){
@@ -197,7 +252,12 @@ function init(){
     data.forEach(createCardRestaurant);
   })
 
-  cardButton.addEventListener("click", toggleModal);
+  cartButton.addEventListener("click", function(){
+    renderCart();
+    toggleModal();
+  });
+
+  cardsMenu.addEventListener('click', addToCart);
 
   close.addEventListener("click", toggleModal);
 
