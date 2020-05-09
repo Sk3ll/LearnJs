@@ -28,6 +28,18 @@ let login = localStorage.getItem('gloDelivery');
 
 const cart = [];
 
+const loadCart = function(){
+  if(localStorage.getItem(login)){
+    JSON.parse(localStorage.getItem(login)).forEach(function(item){
+      cart.push(item);
+    })
+  }
+}
+
+const saveCart = function(){
+  localStorage.setItem(login , JSON.stringify(cart));
+}
+
 const valid = function(str){
   const nameReg = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
   return nameReg.test(str );
@@ -64,7 +76,7 @@ function authorized(){
   
   function logOut(){
     login = null;
-
+    cart.length = 0;
     localStorage.removeItem('gloDelivery');
 
     buttonAuth.style.display = '';
@@ -80,6 +92,7 @@ function authorized(){
   buttonOut.style.display = 'flex';
   cartButton.style.display = 'flex';
   buttonOut.addEventListener('click', logOut);
+  loadCart();
 }
 
 function noAuthorized(){
@@ -221,6 +234,7 @@ function addToCart(event){
   }
   console.log(cart)
  }
+ saveCart();
 }
 
 function renderCart(){
@@ -267,6 +281,7 @@ function changeCount(event) {
     }
     renderCart();
   }
+  saveCart();
 }
 
 function init(){
