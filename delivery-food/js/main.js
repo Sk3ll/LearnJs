@@ -22,6 +22,7 @@ const minPrice = document.querySelector('.price');
 const category = document.querySelector('.category');
 const modalBody = document.querySelector('.modal-body'); 
 const modalPrice = document.querySelector('.modal-pricetag');
+const buttonClearCart = document.querySelector('.clear-cart');
 
 let login = localStorage.getItem('gloDelivery');
 
@@ -224,15 +225,16 @@ function addToCart(event){
 
 function renderCart(){
   modalBody.textContent = '';
+  
   cart.forEach(function({id, tittle, cost, count}){
     const itemCart = `
       <div class="food-row">
         <span class="food-name">${tittle}</span>
         <strong class="food-price">${cost} ₽</strong>
         <div class="food-counter">
-          <button class="counter-button">-</button>
+          <button class="counter-button counter-minus" data-id=${id}>-</button>
           <span class="counter">${count}</span>
-          <button class="counter-button">+</button>
+          <button class="counter-button counter-plus" data-id=${id}>+</button>
         </div>
     </div>
     `;
@@ -241,10 +243,30 @@ function renderCart(){
   });
 
   const totalPrice = cart.reduce(function(result, item){
-    return result + parseFloat(item.cost) * item.count
+    return result + parseFloat(item.cost) * item.count;
   }, 0)
 
   modalPrice.textContent = totalPrice + ' ₽';
+}
+
+function changeCount(event) {
+  const target = event.target;
+
+  if(target.classList.contains('counter-button')){
+    const food = cart.find(function(item){
+      return item.id === target.dataset.id;
+    });
+    if(target.classList.contains('counter-minus')){
+      food.count--;
+      if (food.count === 0){
+        cart.splice(cart.indexOf(food), 1);
+      }
+    }
+    if(target.classList.contains('counter-plus')){
+      food.count++;
+    }
+    renderCart();
+  }
 }
 
 function init(){
@@ -256,6 +278,12 @@ function init(){
     renderCart();
     toggleModal();
   });
+  buttonClearCart.addEventListener('click', function(){
+    cart.length = 0;
+    renderCart();
+  })
+
+  modalBody.addEventListener('click', changeCount);
 
   cardsMenu.addEventListener('click', addToCart);
 
